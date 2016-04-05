@@ -37,7 +37,6 @@ function dispatch() {
           failures[id]("401")
           continue;
         }
-        console.log('tracking:', id, callbacks[id])
         store.track(id, callbacks[id], data)
       }
     })
@@ -46,7 +45,6 @@ function dispatch() {
 export function register(callback, failure) {
   // generate token
   const id = idPrefix + lastId++
-  console.log('registering:', id, callback, failure)
   // register callback
   callbacks[id] = callback
   failures[id]  = failure
@@ -57,6 +55,8 @@ export function register(callback, failure) {
 export function unregister(id) {
   delete callbacks[id]
   delete failures[id]
+  // handle condition that an endpoint was unregistered before finished
+  delete requests[id]
   store.untrack(id)
 }
 

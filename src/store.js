@@ -16,7 +16,8 @@ export function track(id, cb, data) {
     , data
     , deps: cache([], '', data)
     }
-  cb(data)
+  // TODO: Fix this
+  cb && cb(data)
 }
 
 export function untrack(id) {
