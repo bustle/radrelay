@@ -37,6 +37,7 @@ function dispatch() {
           failures[id]("401")
           continue;
         }
+        console.log('tracking:', id, callbacks[id])
         store.track(id, callbacks[id], data)
       }
     })
@@ -45,6 +46,7 @@ function dispatch() {
 export function register(callback, failure) {
   // generate token
   const id = idPrefix + lastId++
+  console.log('registering:', id, callback, failure)
   // register callback
   callbacks[id] = callback
   failures[id]  = failure
