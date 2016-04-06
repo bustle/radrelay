@@ -118,7 +118,7 @@ export function set(obj) {
 
 // mutates a range in the store
 // to include a new object
-export function add(p, range, o, offset = 0) {
+export function add(p, range, o, offset = 0, replace = false) {
   // TODO: restrict fields based on original query
   const pKey = p._key
   const oKey = o._key
@@ -131,7 +131,7 @@ export function add(p, range, o, offset = 0) {
           // get range
           const r = parent({}, dep, data)[range]
           // push object to range
-          r.splice((offset < 0) ? (r.length + offset + 1) : offset, 0, o)
+          r.splice((offset < 0) ? (r.length + offset + 1) : offset, replace ? 1 : 0, o)
           // add deps
           const nDeps = cache([], `${dep[2]}.${range}.[]${oKey}`, o)
           nDeps.forEach(d => deps.push(d))
