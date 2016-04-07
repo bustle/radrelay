@@ -113,7 +113,7 @@ export function set(obj) {
     )
   }
   mutated.forEach
-    ( id => tracked[id] && tracked[id].cb(tracked[id].data) )
+    ( id => tracked[id] && tracked[id].cb && tracked[id].cb(tracked[id].data) )
 }
 
 // mutates a range in the store
@@ -143,7 +143,7 @@ export function add(p, range, o, offset = 0, replace = false) {
     )
   }
   mutated.forEach
-    ( id => tracked[id] && tracked[id].cb(tracked[id].data) )
+    ( id => tracked[id] && tracked[id].cb && tracked[id].cb(tracked[id].data) )
 }
 
 // mutates a range in the store
@@ -173,5 +173,5 @@ export function remove(p, range, o) {
     )
   }
   mutated.forEach
-    ( id => tracked[id] && tracked[id].cb(tracked[id].data) )
+    ( id => tracked[id] && tracked[id].cb && tracked[id].cb(tracked[id].data) )
 }
