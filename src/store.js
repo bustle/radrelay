@@ -113,7 +113,10 @@ export function set(obj) {
     )
   }
   mutated.forEach
-    ( id => tracked[id] && tracked[id].cb && tracked[id].cb(tracked[id].data) )
+    ( id => tracked[id]
+         && tracked[id].cb
+         && tracked[id].cb(tracked[id].data)
+    )
 }
 
 // mutates a range in the store
@@ -143,7 +146,10 @@ export function add(p, range, o, offset = 0, replace = false) {
     )
   }
   mutated.forEach
-    ( id => tracked[id] && tracked[id].cb && tracked[id].cb(tracked[id].data) )
+    ( id => tracked[id]
+         && tracked[id].cb
+         && tracked[id].cb(tracked[id].data)
+    )
 }
 
 // mutates a range in the store
@@ -173,5 +179,31 @@ export function remove(p, range, o) {
     )
   }
   mutated.forEach
-    ( id => tracked[id] && tracked[id].cb && tracked[id].cb(tracked[id].data) )
+    ( id => tracked[id]
+         && tracked[id].cb
+         && tracked[id].cb(tracked[id].data)
+    )
+}
+
+export function removeAt(p, range, idx) {
+  const pKey = p._key
+  const mutated = []
+  for (let id in tracked) {
+    const { data, deps } = tracked[id]
+    deps.forEach
+    ( dep => {
+        if (dep[0] === pKey && dep[1] === range) {
+          const r = parent({}, dep, data)[range]
+          r.splice(idx, 1)
+          if (!~mutated.indexOf(id))
+            mutated.push(id)
+        }
+      }
+    )
+  }
+  mutated.forEach
+    ( id => tracked[id]
+         && tracked[id].cb
+         && tracked[id].cb(tracked[id].data)
+    )
 }
