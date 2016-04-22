@@ -1,6 +1,6 @@
 {
   "name": "radrelay",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "GraphQL microframework for React, serves as a sample implementation for the rad GraphQL suite",
   "main": "lib/index.js",
   "scripts": {

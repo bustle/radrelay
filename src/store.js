@@ -46,6 +46,8 @@ export function cache(acc, parent, obj) {
             cache(acc, `${parent}.${k}.[]${v._key}`, v)
         )
     } else if (f && typeof f === 'object') { // cache subobject
+      if (key)
+        acc.push([ key, k, parent ])
       cache(acc, `${parent}.${k}`, f)
     } else if (key) {                   // cache leaf
       acc.push([ key, k, parent ])
